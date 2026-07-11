@@ -1,7 +1,7 @@
 export const SkeletonCard = () => {
   return (
     <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
-      <div className="bg-gradient-to-r from-gray-200 to-gray-100 h-56 w-full animate-pulse rounded-t-2xl" />
+      <div className="bg-gradient-to-r from-gray-200 to-gray-100 w-full animate-pulse rounded-t-2xl" style={{ aspectRatio: '16/9' }} />
       <div className="p-4 space-y-4">
         <div className="space-y-2">
           <div className="h-5 bg-gradient-to-r from-gray-200 to-gray-100 rounded w-4/5 animate-pulse" />
