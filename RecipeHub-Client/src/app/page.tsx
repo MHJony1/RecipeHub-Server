@@ -1,24 +1,27 @@
-import { Container } from '@/components/common/Container';
-import { Button } from '@/components/ui/Button';
-import { ROUTES } from '@/constants';
+import { Hero } from '@/components/home/Hero';
+import { FeaturedRecipes } from '@/components/home/FeaturedRecipes';
+import { Categories } from '@/components/home/Categories';
+import { WhyChooseUs } from '@/components/home/WhyChooseUs';
+import { LatestRecipes } from '@/components/home/LatestRecipes';
+import { Statistics } from '@/components/home/Statistics';
+import { Testimonials } from '@/components/home/Testimonials';
+import { FAQ } from '@/components/home/FAQ';
+import { Newsletter } from '@/components/home/Newsletter';
+import { CTA } from '@/components/home/CTA';
 
 export default function Home() {
   return (
-    <Container className="py-20">
-      <div className="text-center">
-        <h1 className="text-5xl font-bold text-gray-900 mb-4">🍽️ RecipeHub</h1>
-        <p className="text-xl text-gray-600 mb-8">
-          Discover amazing recipes and share your culinary creations with the world.
-        </p>
-        <div className="flex gap-4 justify-center">
-          <Button>
-            <a href={ROUTES.RECIPES}>Explore Recipes</a>
-          </Button>
-          <Button variant="secondary">
-            <a href={ROUTES.REGISTER}>Get Started</a>
-          </Button>
-        </div>
-      </div>
-    </Container>
+    <>
+      <Hero />
+      <FeaturedRecipes />
+      <Categories />
+      <WhyChooseUs />
+      <LatestRecipes />
+      <Statistics />
+      <Testimonials />
+      <FAQ />
+      <Newsletter />
+      <CTA />
+    </>
   );
 }
