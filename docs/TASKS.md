@@ -18,7 +18,7 @@
 | Phase 2 - Shared UI | ✅ |
 | Phase 3 - Database | ⬜ |
 | Phase 4 - Authentication | ✅ |
-| Phase 5 - Recipe CRUD | ⬜ |
+| Phase 5 - Recipe CRUD | ✅ |
 | Phase 6 - Home Page | ⬜ |
 | Phase 7 - Explore Recipes | ⬜ |
 | Phase 8 - Recipe Details | ⬜ |
