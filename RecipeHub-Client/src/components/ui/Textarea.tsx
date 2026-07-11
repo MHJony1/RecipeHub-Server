@@ -17,8 +17,8 @@ export const Textarea = ({ label, error, className, id, ...props }: TextareaProp
         {...props}
         id={id}
         className={cn(
-          'w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:outline-none focus:border-orange-500 transition-colors resize-none',
-          error && 'border-red-500',
+          'w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-200 transition-all resize-none',
+          error && 'border-red-500 focus:ring-red-200',
           className
         )}
       />

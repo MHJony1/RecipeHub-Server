@@ -1,4 +1,6 @@
 import { ReactNode } from 'react';
+import { AlertCircle } from 'lucide-react';
+import { Button } from './Button';
 
 interface ErrorStateProps {
   title: string;
@@ -6,23 +8,30 @@ interface ErrorStateProps {
   description?: string;
   action?: ReactNode;
   onRetry?: () => void;
+  className?: string;
 }
 
-export const ErrorState = ({ title, message, description, action, onRetry }: ErrorStateProps) => {
+export const ErrorState = ({
+  title,
+  message,
+  description,
+  action,
+  onRetry,
+  className = '',
+}: ErrorStateProps) => {
   const text = description || message;
 
   return (
-    <div className="flex flex-col items-center justify-center py-12 px-4">
-      <div className="text-6xl mb-4">⚠️</div>
-      <h3 className="text-2xl font-bold text-red-600 mb-2">{title}</h3>
-      <p className="text-gray-600 text-center mb-6">{text}</p>
+    <div className={`flex flex-col items-center justify-center py-16 px-4 bg-red-50 rounded-2xl border border-red-200 ${className}`}>
+      <AlertCircle className="w-16 h-16 text-red-500 mb-6" />
+      <h3 className="text-2xl font-bold text-red-700 mb-2 text-center">{title}</h3>
+      {text && (
+        <p className="text-red-600 text-center mb-8 max-w-sm">{text}</p>
+      )}
       {action || (onRetry && (
-        <button
-          onClick={onRetry}
-          className="px-6 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors"
-        >
+        <Button onClick={onRetry} variant="primary">
           Try Again
-        </button>
+        </Button>
       ))}
     </div>
   );

@@ -9,14 +9,14 @@ interface BadgeProps {
 
 export const Badge = ({ children, variant = 'default', className }: BadgeProps) => {
   const variants = {
-    default: 'bg-gray-100 text-gray-900',
-    success: 'bg-green-100 text-green-900',
-    warning: 'bg-yellow-100 text-yellow-900',
-    danger: 'bg-red-100 text-red-900',
+    default: 'bg-gray-100 text-gray-800 border border-gray-200',
+    success: 'bg-green-50 text-green-800 border border-green-200',
+    warning: 'bg-yellow-50 text-yellow-800 border border-yellow-200',
+    danger: 'bg-red-50 text-red-800 border border-red-200',
   };
 
   return (
-    <span className={cn('px-3 py-1 rounded-full text-sm font-medium', variants[variant], className)}>
+    <span className={cn('px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider', variants[variant], className)}>
       {children}
     </span>
   );

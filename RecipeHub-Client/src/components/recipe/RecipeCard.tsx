@@ -29,7 +29,7 @@ export const RecipeCard = ({ recipe, index = 0 }: RecipeCardProps) => {
   return (
     <motion.div variants={variants} whileHover="hover" initial="hidden" animate="visible">
       <Card className="overflow-hidden h-full flex flex-col hover:shadow-xl transition-shadow">
-        <div className="relative h-48 w-full overflow-hidden bg-gray-200">
+        <div className="relative h-56 w-full overflow-hidden bg-gray-200 rounded-t-2xl">
           {recipe.image ? (
             <Image
               src={recipe.image}

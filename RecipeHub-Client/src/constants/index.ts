@@ -9,6 +9,8 @@ export const ROUTES = {
   MANAGE_RECIPES: '/dashboard/manage-recipes',
   ABOUT: '/about',
   CONTACT: '/contact',
+  PRIVACY: '/privacy',
+  TERMS: '/terms',
 };
 
 export const RECIPE_CATEGORIES = [

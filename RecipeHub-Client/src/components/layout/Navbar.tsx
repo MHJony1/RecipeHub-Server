@@ -50,6 +50,9 @@ export const Navbar = () => {
             <Link href={ROUTES.ABOUT} className="text-gray-700 hover:text-orange-500 transition-colors font-medium">
               About
             </Link>
+            <Link href={ROUTES.CONTACT} className="text-gray-700 hover:text-orange-500 transition-colors font-medium">
+              Contact
+            </Link>
           </div>
 
           <div className="flex gap-3 items-center">

@@ -71,11 +71,11 @@ export const StatisticsCards = ({ stats }: StatisticsCardsProps) => {
 
         return (
           <motion.div key={index} variants={itemVariants}>
-            <Card className="hover:shadow-lg transition-shadow">
-              <div className={`${card.bgColor} p-4 rounded-lg mb-4 w-fit`}>
-                <Icon className={`${card.color} w-6 h-6`} />
+            <Card className="hover:shadow-xl transition-all">
+              <div className={`${card.bgColor} p-3 rounded-lg mb-4 w-fit`}>
+                <Icon className={`${card.color} w-7 h-7`} />
               </div>
-              <p className="text-sm text-gray-600 mb-1">{card.title}</p>
+              <p className="text-xs text-gray-500 uppercase tracking-wider font-semibold mb-2">{card.title}</p>
               <p className="text-3xl font-bold text-gray-900">{card.value}</p>
             </Card>
           </motion.div>

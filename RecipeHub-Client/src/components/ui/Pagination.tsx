@@ -10,14 +10,14 @@ export const Pagination = ({ currentPage, totalPages, onPageChange }: Pagination
   if (totalPages <= 1) return null;
 
   return (
-    <div className="flex justify-center items-center gap-2 mt-8">
+    <div className="flex justify-center items-center gap-2 mt-12 py-8 border-t border-gray-200">
       <Button
         variant="secondary"
         size="sm"
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
       >
-        Previous
+        ← Previous
       </Button>
 
       <div className="flex gap-1">
@@ -39,7 +39,7 @@ export const Pagination = ({ currentPage, totalPages, onPageChange }: Pagination
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
       >
-        Next
+        Next →
       </Button>
     </div>
   );

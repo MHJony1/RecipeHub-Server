@@ -17,8 +17,8 @@ export const Input = ({ label, error, className, id, ...props }: InputProps) => 
         {...props}
         id={id}
         className={cn(
-          'w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:outline-none focus:border-orange-500 transition-colors',
-          error && 'border-red-500',
+          'w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-200 transition-all',
+          error && 'border-red-500 focus:ring-red-200',
           className
         )}
       />
