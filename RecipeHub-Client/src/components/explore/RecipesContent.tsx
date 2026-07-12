@@ -96,21 +96,21 @@ export const RecipesContent = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
+    <div className="min-h-screen bg-background py-16">
       <Container>
         <div className="mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">Explore Recipes</h1>
-          <p className="text-gray-600">Discover delicious recipes from our community</p>
+          <h1 className="font-display text-4xl md:text-5xl font-bold text-text mb-3">Explore Recipes</h1>
+          <p className="font-body text-lg text-text-secondary">Discover delicious recipes from our community</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           <FilterBar filters={filters} onFilterChange={handleFilterChange} onReset={handleResetFilters} />
 
           <div className="lg:col-span-3">
-            <div className="mb-6 space-y-4">
+            <div className="mb-8 space-y-4">
               <SearchBar value={filters.search || ''} onChange={handleSearch} />
               <div className="flex justify-between items-center">
-                <p className="text-sm text-gray-600">
+                <p className="font-body text-sm text-text-secondary">
                   {pagination.total > 0 ? `Showing ${recipes.length} of ${pagination.total} recipes` : ''}
                 </p>
                 <SortDropdown value={filters.sort || 'newest'} onChange={handleSortChange} />
@@ -139,7 +139,7 @@ export const RecipesContent = () => {
                   (filters.search || filters.category || filters.difficulty || filters.cookingTime) && (
                     <button
                       onClick={handleResetFilters}
-                      className="px-6 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors"
+                      className="px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors font-body font-semibold"
                     >
                       Reset Filters
                     </button>
