@@ -37,7 +37,7 @@ export const FeaturedRecipes = () => {
   };
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-24 md:py-32 bg-white">
       <Container>
         <SectionTitle
           title="Featured Recipes"
@@ -45,7 +45,7 @@ export const FeaturedRecipes = () => {
         />
 
         {error && (
-          <div className="text-center text-red-600 mb-8">
+          <div className="text-center text-danger mb-8 font-body">
             <p>{error}</p>
           </div>
         )}

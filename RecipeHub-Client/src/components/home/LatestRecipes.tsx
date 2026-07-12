@@ -40,7 +40,7 @@ export const LatestRecipes = () => {
   };
 
   return (
-    <section className="py-20 bg-gray-50">
+    <section className="py-24 md:py-32 bg-background">
       <Container>
         <SectionTitle
           title="Latest Recipes"
@@ -48,7 +48,7 @@ export const LatestRecipes = () => {
         />
 
         {error && (
-          <div className="text-center text-red-600 mb-8">
+          <div className="text-center text-danger mb-8 font-body">
             <p>{error}</p>
           </div>
         )}
@@ -83,7 +83,7 @@ export const LatestRecipes = () => {
         )}
 
         <div className="text-center">
-          <Button size="lg">
+          <Button size="lg" className="font-display font-semibold">
             <Link href={ROUTES.RECIPES}>View All Recipes</Link>
           </Button>
         </div>

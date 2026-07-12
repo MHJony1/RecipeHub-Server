@@ -31,7 +31,7 @@ export const Categories = () => {
   };
 
   return (
-    <section className="py-20 bg-gray-50">
+    <section className="py-24 md:py-32 bg-background">
       <Container>
         <SectionTitle
           title="Recipe Categories"
@@ -51,9 +51,9 @@ export const Categories = () => {
                 whileHover="hover"
                 className="cursor-pointer"
               >
-                <Card className="text-center py-8 hover:shadow-xl transition-shadow">
-                  <div className="text-4xl mb-4">{categoryEmojis[category] || '🍳'}</div>
-                  <h3 className="font-semibold text-gray-900">{category}</h3>
+                <Card className="text-center py-10 px-6 hover:shadow-lg transition-all">
+                  <div className="text-5xl mb-4">{categoryEmojis[category] || '🍳'}</div>
+                  <h3 className="font-display font-semibold text-text text-lg">{category}</h3>
                 </Card>
               </motion.div>
             </Link>

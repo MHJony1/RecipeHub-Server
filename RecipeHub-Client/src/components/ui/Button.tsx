@@ -17,11 +17,11 @@ export const Button = ({
   className,
   ...props
 }: ButtonProps) => {
-  const baseStyles = 'font-semibold rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-offset-2 active:scale-95';
+  const baseStyles = 'font-semibold rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-offset-2 active:scale-95';
 
   const variants = {
-    primary: 'bg-orange-500 text-white hover:bg-orange-600 active:bg-orange-700 focus:ring-orange-300 shadow-md hover:shadow-lg',
-    secondary: 'border-2 border-orange-500 text-orange-500 hover:bg-orange-50 active:bg-orange-100 focus:ring-orange-300',
+    primary: 'bg-primary text-white hover:bg-primary/90 active:bg-primary/80 focus:ring-accent shadow-md hover:shadow-lg',
+    secondary: 'border-2 border-primary text-primary hover:bg-primary/5 active:bg-primary/10 focus:ring-accent',
     danger: 'bg-red-500 text-white hover:bg-red-600 active:bg-red-700 focus:ring-red-300 shadow-md hover:shadow-lg',
   };
 

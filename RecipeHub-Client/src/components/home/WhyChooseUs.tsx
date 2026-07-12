@@ -14,22 +14,22 @@ interface Feature {
 
 const features: Feature[] = [
   {
-    icon: <Search className="w-10 h-10 text-orange-500" />,
+    icon: <Search className="w-12 h-12 text-primary" />,
     title: 'Easy Discovery',
     description: 'Find recipes by ingredients, cuisine, or difficulty level.',
   },
   {
-    icon: <Zap className="w-10 h-10 text-orange-500" />,
+    icon: <Zap className="w-12 h-12 text-primary" />,
     title: 'Quick & Healthy',
     description: 'Explore quick recipes that dont compromise on nutrition.',
   },
   {
-    icon: <Clock className="w-10 h-10 text-orange-500" />,
+    icon: <Clock className="w-12 h-12 text-primary" />,
     title: 'Time Saving',
     description: 'Filter by cooking time and find recipes that fit your schedule.',
   },
   {
-    icon: <Users className="w-10 h-10 text-orange-500" />,
+    icon: <Users className="w-12 h-12 text-primary" />,
     title: 'Community Driven',
     description: 'Share your recipes and learn from millions of home cooks.',
   },
@@ -47,7 +47,7 @@ export const WhyChooseUs = () => {
   };
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-24 md:py-32 bg-white">
       <Container>
         <SectionTitle
           title="Why Choose RecipeHub?"
@@ -62,10 +62,10 @@ export const WhyChooseUs = () => {
         >
           {features.map((feature, index) => (
             <motion.div key={index} variants={itemVariants}>
-              <Card className="text-center hover:shadow-xl transition-shadow h-full flex flex-col items-center justify-center py-8">
+              <Card className="text-center hover:shadow-lg transition-all h-full flex flex-col items-center justify-center py-10 px-6">
                 <div className="mb-4">{feature.icon}</div>
-                <h3 className="font-bold text-lg text-gray-900 mb-2">{feature.title}</h3>
-                <p className="text-sm text-gray-600">{feature.description}</p>
+                <h3 className="font-display font-bold text-lg text-text mb-2">{feature.title}</h3>
+                <p className="font-body text-sm text-text-secondary">{feature.description}</p>
               </Card>
             </motion.div>
           ))}

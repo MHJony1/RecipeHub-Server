@@ -19,7 +19,6 @@ export const Newsletter = () => {
 
     setIsLoading(true);
     try {
-      // Simulate newsletter subscription
       await new Promise((resolve) => setTimeout(resolve, 500));
       setIsSubmitted(true);
       setEmail('');
@@ -37,7 +36,7 @@ export const Newsletter = () => {
   };
 
   return (
-    <section className="py-20 bg-gradient-to-r from-orange-500 to-orange-600">
+    <section className="py-24 md:py-32 bg-gradient-to-r from-primary via-primary/90 to-secondary/80">
       <Container>
         <motion.div
           className="max-w-2xl mx-auto"
@@ -47,11 +46,11 @@ export const Newsletter = () => {
         >
           <Card className="bg-white">
             <div className="text-center mb-8">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-orange-100 rounded-full mb-4">
-                <Mail className="text-orange-500" size={32} />
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mb-4">
+                <Mail className="text-primary" size={32} />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">Subscribe to Our Newsletter</h3>
-              <p className="text-gray-600">
+              <h3 className="font-display text-3xl font-bold text-text mb-2">Subscribe to Our Newsletter</h3>
+              <p className="font-body text-text-secondary text-lg">
                 Get weekly recipes, cooking tips, and exclusive content delivered to your inbox.
               </p>
             </div>
@@ -68,7 +67,7 @@ export const Newsletter = () => {
               <Button
                 type="submit"
                 size="lg"
-                className="w-full"
+                className="w-full font-display font-semibold"
                 isLoading={isLoading}
                 disabled={isLoading || !email}
               >
@@ -78,7 +77,7 @@ export const Newsletter = () => {
 
             {isSubmitted && (
               <motion.p
-                className="text-center text-green-600 text-sm mt-4"
+                className="text-center text-primary text-sm mt-4 font-body"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
               >

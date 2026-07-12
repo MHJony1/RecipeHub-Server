@@ -57,12 +57,12 @@ const AccordionItem = ({ item, isOpen, onToggle }: AccordionItemProps) => {
     <Card className="mb-4 overflow-hidden">
       <button
         onClick={onToggle}
-        className="w-full px-6 py-4 flex items-center justify-between hover:bg-orange-50 transition-colors"
+        className="w-full px-6 py-5 flex items-center justify-between hover:bg-accent/5 transition-colors"
       >
-        <h3 className="font-semibold text-gray-900 text-left">{item.question}</h3>
+        <h3 className="font-display font-semibold text-text text-left">{item.question}</h3>
         <ChevronDown
           size={20}
-          className={`text-orange-500 transition-transform duration-300 flex-shrink-0 ${isOpen ? 'rotate-180' : ''}`}
+          className={`text-primary transition-transform duration-300 flex-shrink-0 ${isOpen ? 'rotate-180' : ''}`}
         />
       </button>
 
@@ -73,9 +73,9 @@ const AccordionItem = ({ item, isOpen, onToggle }: AccordionItemProps) => {
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="border-t border-gray-200"
+            className="border-t border-border/30"
           >
-            <p className="px-6 py-4 text-gray-600">{item.answer}</p>
+            <p className="px-6 py-5 font-body text-text-secondary leading-relaxed">{item.answer}</p>
           </motion.div>
         )}
       </AnimatePresence>
@@ -92,7 +92,7 @@ export const FAQ = () => {
   };
 
   return (
-    <section className="py-20 bg-gray-50">
+    <section className="py-24 md:py-32 bg-background">
       <Container>
         <SectionTitle
           title="Frequently Asked Questions"

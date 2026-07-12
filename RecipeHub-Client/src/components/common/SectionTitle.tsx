@@ -18,9 +18,11 @@ export const SectionTitle = ({
   const text = description || subtitle;
 
   return (
-    <div className={cn('mb-12', centered ? 'text-center' : '', className)}>
-      <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">{title}</h2>
-      {text && <p className="text-gray-600 text-lg max-w-2xl mx-auto">{text}</p>}
+    <div className={cn('mb-16 md:mb-20', centered ? 'text-center' : '', className)}>
+      <h2 className="font-display text-4xl md:text-5xl font-bold text-text mb-4">{title}</h2>
+      {text && (
+        <p className="font-body text-text-secondary text-lg md:text-xl max-w-3xl mx-auto">{text}</p>
+      )}
     </div>
   );
 };

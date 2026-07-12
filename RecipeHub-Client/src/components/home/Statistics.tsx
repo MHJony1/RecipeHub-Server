@@ -7,7 +7,7 @@ import { SectionTitle } from '@/components/common/SectionTitle';
 import { Card } from '@/components/ui/Card';
 import { recipeService } from '@/services/recipe.service';
 import { RECIPE_CATEGORIES } from '@/constants';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 
 interface StatData {
@@ -17,7 +17,7 @@ interface StatData {
   contributors: number;
 }
 
-const CHART_COLORS = ['#F97316', '#22C55E', '#FACC15', '#3B82F6', '#8B5CF6', '#EC4899', '#14B8A6', '#F59E0B'];
+const CHART_COLORS = ['#6b2737', '#a89968', '#d4a574', '#8b6b63', '#9d7f77', '#b39789', '#c4a79b', '#d5b9ad'];
 
 export const Statistics = () => {
   const [stats, setStats] = useState<StatData>({ total: 0, categories: 0, avgCookingTime: 0, contributors: 0 });
@@ -45,7 +45,6 @@ export const Statistics = () => {
           contributors,
         });
 
-        // Prepare category data for chart
         const categoryCounts: Record<string, number> = {};
         recipes.forEach((recipe: any) => {
           categoryCounts[recipe.category] = (categoryCounts[recipe.category] || 0) + 1;
@@ -79,7 +78,7 @@ export const Statistics = () => {
 
   if (isLoading) {
     return (
-      <section className="py-20 bg-gray-50">
+      <section className="py-24 md:py-32 bg-background">
         <Container>
           <SectionTitle title="Platform Statistics" description="See what our community has achieved." />
           <div className="flex justify-center py-20">
@@ -91,36 +90,36 @@ export const Statistics = () => {
   }
 
   return (
-    <section className="py-20 bg-gray-50">
+    <section className="py-24 md:py-32 bg-background">
       <Container>
         <SectionTitle title="Platform Statistics" description="See what our community has achieved." />
 
         <motion.div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12" variants={containerVariants} initial="hidden" animate="visible">
           <motion.div variants={itemVariants}>
-            <Card className="text-center py-8">
-              <div className="text-4xl font-bold text-orange-500 mb-2">{stats.total}</div>
-              <p className="text-gray-600">Total Recipes</p>
+            <Card className="text-center py-10">
+              <div className="text-5xl font-display font-bold text-primary mb-2">{stats.total}</div>
+              <p className="font-body text-text-secondary">Total Recipes</p>
             </Card>
           </motion.div>
 
           <motion.div variants={itemVariants}>
-            <Card className="text-center py-8">
-              <div className="text-4xl font-bold text-green-500 mb-2">{stats.categories}</div>
-              <p className="text-gray-600">Categories</p>
+            <Card className="text-center py-10">
+              <div className="text-5xl font-display font-bold text-primary mb-2">{stats.categories}</div>
+              <p className="font-body text-text-secondary">Categories</p>
             </Card>
           </motion.div>
 
           <motion.div variants={itemVariants}>
-            <Card className="text-center py-8">
-              <div className="text-4xl font-bold text-yellow-500 mb-2">{stats.avgCookingTime}m</div>
-              <p className="text-gray-600">Avg Cooking Time</p>
+            <Card className="text-center py-10">
+              <div className="text-5xl font-display font-bold text-primary mb-2">{stats.avgCookingTime}m</div>
+              <p className="font-body text-text-secondary">Avg Cooking Time</p>
             </Card>
           </motion.div>
 
           <motion.div variants={itemVariants}>
-            <Card className="text-center py-8">
-              <div className="text-4xl font-bold text-blue-500 mb-2">{stats.contributors}</div>
-              <p className="text-gray-600">Contributors</p>
+            <Card className="text-center py-10">
+              <div className="text-5xl font-display font-bold text-primary mb-2">{stats.contributors}</div>
+              <p className="font-body text-text-secondary">Contributors</p>
             </Card>
           </motion.div>
         </motion.div>
@@ -128,14 +127,20 @@ export const Statistics = () => {
         {chartData.length > 0 && (
           <motion.div variants={itemVariants} initial="hidden" animate="visible">
             <Card className="p-8">
-              <h3 className="text-lg font-bold text-gray-900 mb-6">Recipes by Category</h3>
+              <h3 className="font-display text-xl font-bold text-text mb-6">Recipes by Category</h3>
               <ResponsiveContainer width="100%" height={300}>
                 <BarChart data={chartData}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
-                  <Bar dataKey="value" fill="#F97316" radius={[8, 8, 0, 0]} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" opacity={0.2} />
+                  <XAxis dataKey="name" stroke="var(--text-secondary)" />
+                  <YAxis stroke="var(--text-secondary)" />
+                  <Tooltip
+                    contentStyle={{
+                      backgroundColor: 'white',
+                      border: '1px solid var(--accent)',
+                      borderRadius: '8px'
+                    }}
+                  />
+                  <Bar dataKey="value" fill="#6b2737" radius={[8, 8, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </Card>
