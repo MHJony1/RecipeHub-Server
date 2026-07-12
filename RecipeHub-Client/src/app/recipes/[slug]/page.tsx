@@ -2,10 +2,11 @@ import { Suspense } from 'react';
 import { RecipeDetailsContent } from '@/components/recipe/RecipeDetailsContent';
 import { RecipeDetailsSkeleton } from '@/components/recipe/RecipeDetailsSkeleton';
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   try {
+    const { slug } = await params;
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/recipes/slug/${params.slug}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/recipes/slug/${slug}`,
       { next: { revalidate: 3600 } }
     );
     if (!response.ok) return { title: 'Recipe Not Found' };
@@ -27,10 +28,11 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   }
 }
 
-export default function RecipeDetailsPage({ params }: { params: { slug: string } }) {
+export default async function RecipeDetailsPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
   return (
     <Suspense fallback={<RecipeDetailsSkeleton />}>
-      <RecipeDetailsContent slug={params.slug} />
+      <RecipeDetailsContent slug={slug} />
     </Suspense>
   );
 }

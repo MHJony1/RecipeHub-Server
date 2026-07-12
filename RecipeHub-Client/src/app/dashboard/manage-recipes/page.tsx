@@ -18,10 +18,6 @@ export default function ManageRecipesPage() {
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
 
-  useEffect(() => {
-    loadRecipes();
-  }, []);
-
   const loadRecipes = async () => {
     try {
       const response = await recipeService.getUserRecipes();
@@ -32,6 +28,10 @@ export default function ManageRecipesPage() {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    loadRecipes();
+  }, []);
 
   const handleDelete = async () => {
     if (!selectedRecipe) return;

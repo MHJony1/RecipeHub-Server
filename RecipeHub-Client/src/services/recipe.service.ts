@@ -33,8 +33,36 @@ export interface Recipe {
   updatedAt: string;
 }
 
+export interface PaginationData {
+  page: number;
+  limit: number;
+  total: number;
+  totalPages: number;
+}
+
+export interface RecipeCreateData {
+  title: string;
+  shortDescription: string;
+  description: string;
+  category: string;
+  difficulty: string;
+  cookingTime: number;
+  image?: string;
+  ingredients: string[];
+  instructions: string[];
+}
+
+export interface RecipeFilters {
+  page?: number;
+  limit?: number;
+  search?: string;
+  category?: string;
+  difficulty?: string;
+  sort?: string;
+}
+
 export const recipeService = {
-  async createRecipe(data: any) {
+  async createRecipe(data: RecipeCreateData) {
     const response = await api.post<{ success: boolean; data: Recipe }>('/recipes', data);
     return response.data.data;
   },
@@ -43,16 +71,16 @@ export const recipeService = {
     const response = await api.get<{
       success: boolean;
       data: Recipe[];
-      pagination: { page: number; limit: number; total: number; totalPages: number };
+      pagination: PaginationData;
     }>('/recipes/user/my-recipes', { params: { page, limit } });
     return response.data;
   },
 
-  async getRecipes(params?: any) {
+  async getRecipes(params?: RecipeFilters) {
     const response = await api.get<{
       success: boolean;
       data: Recipe[];
-      pagination: any;
+      pagination: PaginationData;
     }>('/recipes', { params });
     return response.data;
   },
@@ -71,7 +99,7 @@ export const recipeService = {
     await api.delete(`/recipes/${id}`);
   },
 
-  async updateRecipe(id: string, data: any) {
+  async updateRecipe(id: string, data: Partial<RecipeCreateData>) {
     const response = await api.put<{ success: boolean; data: Recipe }>(`/recipes/${id}`, data);
     return response.data.data;
   },

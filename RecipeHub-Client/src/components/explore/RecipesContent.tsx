@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Container } from '@/components/common/Container';
 import { RecipeGrid } from '@/components/recipe/RecipeGrid';
@@ -39,36 +39,36 @@ export const RecipesContent = () => {
     sort: searchParams.get('sort') || 'newest',
   });
 
-  const fetchRecipes = useCallback(async () => {
-    try {
-      setIsLoading(true);
-      setError(null);
-
-      const params: any = {
-        page: filters.page,
-        limit: filters.limit,
-      };
-
-      if (filters.search) params.search = filters.search;
-      if (filters.category) params.category = filters.category;
-      if (filters.difficulty) params.difficulty = filters.difficulty;
-      if (filters.sort) params.sort = filters.sort;
-
-      const response = await recipeService.getRecipes(params);
-      setRecipes(response.data || []);
-      setPagination(response.pagination || { page: 1, totalPages: 1, total: 0 });
-    } catch (err) {
-      console.error('Failed to fetch recipes:', err);
-      setError('Failed to load recipes. Please try again.');
-      setRecipes([]);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [filters]);
-
   useEffect(() => {
+    const fetchRecipes = async () => {
+      try {
+        setIsLoading(true);
+        setError(null);
+
+        const params: Record<string, string | number> = {
+          page: filters.page,
+          limit: filters.limit,
+        };
+
+        if (filters.search) params.search = filters.search;
+        if (filters.category) params.category = filters.category;
+        if (filters.difficulty) params.difficulty = filters.difficulty;
+        if (filters.sort) params.sort = filters.sort;
+
+        const response = await recipeService.getRecipes(params);
+        setRecipes(response.data || []);
+        setPagination(response.pagination || { page: 1, totalPages: 1, total: 0 });
+      } catch (err) {
+        console.error('Failed to fetch recipes:', err);
+        setError('Failed to load recipes. Please try again.');
+        setRecipes([]);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
     fetchRecipes();
-  }, [fetchRecipes]);
+  }, [filters.page, filters.limit, filters.search, filters.category, filters.difficulty, filters.cookingTime, filters.sort]);
 
   const handleSearch = (query: string) => {
     setFilters((prev) => ({ ...prev, search: query, page: 1 }));
@@ -85,6 +85,10 @@ export const RecipesContent = () => {
   const handlePageChange = (newPage: number) => {
     setFilters((prev) => ({ ...prev, page: newPage }));
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleRetry = () => {
+    setFilters((prev) => ({ ...prev }));
   };
 
   const handleResetFilters = () => {
@@ -117,13 +121,13 @@ export const RecipesContent = () => {
               <ErrorState
                 title="Error Loading Recipes"
                 description={error}
-                onRetry={fetchRecipes}
+                onRetry={handleRetry}
               />
             )}
 
             {isLoading ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {[...Array(8)].map((_, i) => (
+                {[...Array(filters.limit)].map((_, i) => (
                   <SkeletonCard key={i} />
                 ))}
               </div>

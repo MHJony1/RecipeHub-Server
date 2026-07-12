@@ -32,7 +32,6 @@ export default function AddRecipePage() {
     register,
     handleSubmit,
     formState: { errors },
-    watch,
   } = useForm<RecipeFormData>({
     resolver: zodResolver(recipeSchema),
     defaultValues: {
