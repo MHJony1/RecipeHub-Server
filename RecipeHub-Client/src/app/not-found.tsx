@@ -20,11 +20,11 @@ export default function NotFound() {
           </h1>
 
           <p className="text-xl text-gray-600 mb-2">
-            Oops! We couldn't find the recipe you're looking for.
+            Oops! We couldn&apos;t find the recipe you&apos;re looking for.
           </p>
 
           <p className="text-gray-500 mb-12">
-            The page might have been removed, or the URL might be incorrect. Let's get you back on track!
+            The page might have been removed, or the URL might be incorrect. Let&apos;s get you back on track!
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { toast } from 'sonner';
+import { toast } from 'react-hot-toast';
 import { loginSchema, type LoginFormData } from '@/lib/validations';
 import { useAuth } from '@/providers/AuthContext';
 import { ROUTES } from '@/constants';
@@ -50,7 +50,7 @@ export default function LoginPage() {
   const fillDemoCredentials = () => {
     setValue('email', DEMO_CREDENTIALS.email);
     setValue('password', DEMO_CREDENTIALS.password);
-    toast.info('Demo credentials filled');
+    toast.success('Demo credentials filled');
   };
 
   return (

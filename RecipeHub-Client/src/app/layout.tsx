@@ -4,6 +4,7 @@ import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { Providers } from '@/components/providers/Providers';
 import './globals.css';
+import { Toaster } from 'react-hot-toast';
 
 const poppins = Poppins({
   variable: '--font-poppins',
@@ -34,6 +35,7 @@ export default function RootLayout({
           <Navbar />
           <main className="flex-1">{children}</main>
           <Footer />
+          <Toaster/>
         </Providers>
       </body>
     </html>

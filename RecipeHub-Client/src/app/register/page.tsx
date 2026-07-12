@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { toast } from 'sonner';
 import { registerSchema, type RegisterFormData } from '@/lib/validations';
 import { useAuth } from '@/providers/AuthContext';
 import { ROUTES } from '@/constants';
@@ -13,6 +12,7 @@ import { Card } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
 import Link from 'next/link';
+import toast from 'react-hot-toast';
 
 export default function RegisterPage() {
   const router = useRouter();

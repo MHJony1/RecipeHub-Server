@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { toast } from 'sonner';
+import { toast } from 'react-hot-toast';
 import { recipeSchema, type RecipeFormData } from '@/lib/recipe-validations';
 import { recipeService, type Recipe } from '@/services/recipe.service';
 import { ProtectedRoute } from '@/components/common/ProtectedRoute';
@@ -54,7 +54,7 @@ export default function ManageRecipesPage() {
     try {
       const response = await recipeService.getUserRecipes();
       setRecipes(response.data);
-    } catch (error) {
+    } catch {
       toast.error('Failed to load recipes');
     } finally {
       setIsLoading(false);
@@ -73,8 +73,8 @@ export default function ManageRecipesPage() {
       title: recipe.title,
       shortDescription: recipe.shortDescription,
       description: recipe.description,
-      category: recipe.category as any,
-      difficulty: recipe.difficulty as any,
+      category: recipe.category as RecipeFormData['category'],
+      difficulty: recipe.difficulty as RecipeFormData['difficulty'],
       cookingTime: recipe.cookingTime,
       image: recipe.image,
       ingredients: recipe.ingredients,
@@ -98,7 +98,7 @@ export default function ManageRecipesPage() {
       toast.success('Recipe updated successfully!');
       setUpdateModalOpen(false);
       setSelectedRecipe(null);
-    } catch (error) {
+    } catch {
       toast.error('Failed to update recipe');
     } finally {
       setIsSubmitting(false);
@@ -114,7 +114,7 @@ export default function ManageRecipesPage() {
       setRecipes(recipes.filter((r) => r._id !== selectedRecipe._id));
       setDeleteModalOpen(false);
       setSelectedRecipe(null);
-    } catch (error) {
+    } catch {
       toast.error('Failed to delete recipe');
     }
   };

@@ -3,7 +3,11 @@
     "allow": [
       "Bash(npm init *)",
       "Bash(npm install *)",
-      "Bash(npm run *)"
+      "Bash(npm run *)",
+      "Bash(grep -o \"overflow-y\" C:\\\\\\\\Users\\\\\\\\User\\\\\\\\.claude\\\\\\\\projects\\\\\\\\C--Assignment-Project-SCIC-Assignment-TypeScript--RecipeHub\\\\\\\\d61f5be0-4bf3-418c-9c71-4d12a54e6257\\\\\\\\tool-results\\\\\\\\bfjxd6077.txt)",
+      "Bash(taskkill /PID 10672 /F)",
+      "Bash(pkill -f \"next dev\")",
+      "Read(//tmp/**)"
     ]
   }
 }
