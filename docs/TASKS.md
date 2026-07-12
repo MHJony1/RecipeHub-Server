@@ -432,6 +432,12 @@
 - [x] Fixed ESLint errors (unused variables, `any` types)
 - [x] Fixed variable hoisting issue in manage-recipes
 - [x] Fixed unescaped entities in JSX
+- [x] Fixed View button on Manage Recipes page (now navigates to recipe details using slug)
+- [x] Added Update Recipe feature with pre-filled modal form
+  - Backend: PUT /api/v1/recipes/:id endpoint (already existed)
+  - Frontend: Update modal with form validation and error handling
+  - Reuses existing recipe validation schema
+  - Shows success toast and refreshes recipe list on successful update
 
 ## Code Quality
 - [x] TypeScript strict mode passes
