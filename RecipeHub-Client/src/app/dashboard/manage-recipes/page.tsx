@@ -179,7 +179,7 @@ export default function ManageRecipesPage() {
           </div>
         </Modal>
 
-        <Modal isOpen={updateModalOpen} onClose={() => setUpdateModalOpen(false)} title="Update Recipe">
+        <Modal isOpen={updateModalOpen} onClose={() => setUpdateModalOpen(false)} title="Update Recipe" size="3xl" scrollable={true}>
           <form onSubmit={handleSubmit(handleUpdate)} className="space-y-6">
             <Input label="Title" error={errors.title?.message} {...register('title')} />
 
@@ -187,85 +187,93 @@ export default function ManageRecipesPage() {
 
             <Textarea label="Description" error={errors.description?.message} {...register('description')} />
 
-            <Select
-              label="Category"
-              options={RECIPE_CATEGORIES.map((cat) => ({ label: cat, value: cat }))}
-              error={errors.category?.message}
-              {...register('category')}
-            />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <Select
+                label="Category"
+                options={RECIPE_CATEGORIES.map((cat) => ({ label: cat, value: cat }))}
+                error={errors.category?.message}
+                {...register('category')}
+              />
 
-            <Select label="Difficulty" options={difficultyLevels} error={errors.difficulty?.message} {...register('difficulty')} />
+              <Select label="Difficulty" options={difficultyLevels} error={errors.difficulty?.message} {...register('difficulty')} />
+            </div>
 
-            <Input label="Cooking Time (minutes)" type="number" error={errors.cookingTime?.message} {...register('cookingTime', { valueAsNumber: true })} />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <Input label="Cooking Time (minutes)" type="number" error={errors.cookingTime?.message} {...register('cookingTime', { valueAsNumber: true })} />
 
-            <Input label="Image URL" error={errors.image?.message} {...register('image')} />
+              <Input label="Image URL" error={errors.image?.message} {...register('image')} />
+            </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-900 mb-2">Ingredients</label>
-              {ingredients.map((ingredient, index) => (
-                <div key={index} className="flex gap-2 mb-2">
-                  <input
-                    type="text"
-                    value={ingredient}
-                    onChange={(e) => {
-                      const newIngredients = [...ingredients];
-                      newIngredients[index] = e.target.value;
-                      setIngredients(newIngredients);
-                    }}
-                    placeholder="Add ingredient"
-                    className="flex-1 px-4 py-2 border border-gray-300 rounded-xl"
-                  />
-                  {ingredients.length > 1 && (
-                    <button
-                      type="button"
-                      onClick={() => setIngredients(ingredients.filter((_, i) => i !== index))}
-                      className="px-4 py-2 bg-red-500 text-white rounded-xl"
-                    >
-                      Remove
-                    </button>
-                  )}
-                </div>
-              ))}
-              <Button type="button" variant="secondary" onClick={() => setIngredients([...ingredients, ''])}>
-                Add Ingredient
+            <div className="space-y-3">
+              <label className="block text-sm font-medium text-gray-900">Ingredients</label>
+              <div className="space-y-2 max-h-48 overflow-y-auto pr-2">
+                {ingredients.map((ingredient, index) => (
+                  <div key={index} className="flex gap-2 items-center p-3 bg-gray-50 rounded-lg border border-gray-200">
+                    <input
+                      type="text"
+                      value={ingredient}
+                      onChange={(e) => {
+                        const newIngredients = [...ingredients];
+                        newIngredients[index] = e.target.value;
+                        setIngredients(newIngredients);
+                      }}
+                      placeholder="Add ingredient"
+                      className="flex-1 px-3 py-2 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                    />
+                    {ingredients.length > 1 && (
+                      <button
+                        type="button"
+                        onClick={() => setIngredients(ingredients.filter((_, i) => i !== index))}
+                        className="px-3 py-2 bg-red-500 text-white text-sm font-medium rounded-lg hover:bg-red-600 transition-colors shrink-0"
+                      >
+                        Remove
+                      </button>
+                    )}
+                  </div>
+                ))}
+              </div>
+              <Button type="button" variant="secondary" onClick={() => setIngredients([...ingredients, ''])} className="w-full">
+                + Add Ingredient
               </Button>
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-900 mb-2">Instructions</label>
-              {instructions.map((instruction, index) => (
-                <div key={index} className="flex gap-2 mb-2">
-                  <textarea
-                    value={instruction}
-                    onChange={(e) => {
-                      const newInstructions = [...instructions];
-                      newInstructions[index] = e.target.value;
-                      setInstructions(newInstructions);
-                    }}
-                    placeholder="Add instruction"
-                    className="flex-1 px-4 py-2 border border-gray-300 rounded-xl resize-none"
-                  />
-                  {instructions.length > 1 && (
-                    <button
-                      type="button"
-                      onClick={() => setInstructions(instructions.filter((_, i) => i !== index))}
-                      className="px-4 py-2 bg-red-500 text-white rounded-xl"
-                    >
-                      Remove
-                    </button>
-                  )}
-                </div>
-              ))}
-              <Button type="button" variant="secondary" onClick={() => setInstructions([...instructions, ''])}>
-                Add Instruction
+            <div className="space-y-3">
+              <label className="block text-sm font-medium text-gray-900">Instructions</label>
+              <div className="space-y-2 max-h-48 overflow-y-auto pr-2">
+                {instructions.map((instruction, index) => (
+                  <div key={index} className="flex gap-2 p-3 bg-gray-50 rounded-lg border border-gray-200">
+                    <textarea
+                      value={instruction}
+                      onChange={(e) => {
+                        const newInstructions = [...instructions];
+                        newInstructions[index] = e.target.value;
+                        setInstructions(newInstructions);
+                      }}
+                      placeholder="Add instruction"
+                      className="flex-1 px-3 py-2 bg-white border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-orange-500 min-h-24"
+                    />
+                    {instructions.length > 1 && (
+                      <button
+                        type="button"
+                        onClick={() => setInstructions(instructions.filter((_, i) => i !== index))}
+                        className="px-3 py-2 bg-red-500 text-white text-sm font-medium rounded-lg hover:bg-red-600 transition-colors shrink-0 h-fit"
+                      >
+                        Remove
+                      </button>
+                    )}
+                  </div>
+                ))}
+              </div>
+              <Button type="button" variant="secondary" onClick={() => setInstructions([...instructions, ''])} className="w-full">
+                + Add Instruction
               </Button>
             </div>
 
-            <div className="flex gap-3">
+            <div className="flex gap-3 pt-6 border-t border-gray-200">
               <Button type="submit" isLoading={isSubmitting} className="flex-1">
                 Update Recipe
               </Button>
-              <Button type="button" variant="secondary" onClick={() => setUpdateModalOpen(false)}>
+              <Button type="button" variant="secondary" onClick={() => setUpdateModalOpen(false)} className="flex-1">
                 Cancel
               </Button>
             </div>
