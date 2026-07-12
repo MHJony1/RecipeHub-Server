@@ -79,7 +79,7 @@ export default function RegisterPage() {
 
           <p className="text-center text-gray-600 mt-6">
             Already have an account?{' '}
-            <Link href={ROUTES.LOGIN} className="text-orange-500 font-semibold hover:underline">
+            <Link href={ROUTES.LOGIN} className="text-primary font-semibold hover:text-primary/80 transition">
               Login
             </Link>
           </p>
