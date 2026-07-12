@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 import { Container } from '@/components/common/Container';
 import { SectionTitle } from '@/components/common/SectionTitle';
 import { Button } from '@/components/ui/Button';
@@ -19,6 +20,26 @@ const contactSchema = z.object({
 });
 
 type ContactFormData = z.infer<typeof contactSchema>;
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5 },
+  },
+};
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
@@ -43,68 +64,122 @@ export default function ContactPage() {
     }
   };
 
+  const contactInfo = [
+    {
+      icon: Mail,
+      title: 'Email',
+      content: 'contact@recipehub.com',
+    },
+    {
+      icon: Phone,
+      title: 'Phone',
+      content: '+1 (555) 123-4567',
+    },
+    {
+      icon: MapPin,
+      title: 'Location',
+      content: 'San Francisco, California',
+    },
+  ];
+
+  const faqItems = [
+    {
+      q: 'How quickly will I receive a response?',
+      a: 'We typically respond to inquiries within 24-48 hours during business days.',
+    },
+    {
+      q: 'Can I report a bug or issue?',
+      a: 'Yes, please include as much detail as possible in your message, including steps to reproduce the issue.',
+    },
+    {
+      q: 'Do you accept partnership inquiries?',
+      a: 'We welcome partnership and collaboration opportunities. Feel free to reach out with your proposal.',
+    },
+    {
+      q: 'Is my personal data safe?',
+      a: 'Your data is secure and will never be shared with third parties. We follow strict privacy standards.',
+    },
+  ];
+
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 border-b border-accent/20">
         <Container>
-          <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+          <motion.div
+            className="max-w-3xl mx-auto text-center"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <h1 className="font-display text-5xl md:text-6xl font-bold text-text mb-6">
               Get in Touch
             </h1>
-            <p className="text-lg text-gray-600">
-              Have a question or feedback? We&apos;d love to hear from you. Send us a message and we&apos;ll respond as soon as possible.
+            <p className="font-body text-lg text-text-secondary">
+              Have a question or feedback? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
             </p>
-          </div>
+          </motion.div>
         </Container>
       </section>
 
       {/* Contact Section */}
       <section className="py-20">
         <Container>
-          <div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="mb-16"
+          >
             <SectionTitle title="Get In Touch With Us" className="mb-16 text-center" />
-            <div className="grid md:grid-cols-3 gap-8 mb-16">
-              {[
-                {
-                  icon: Mail,
-                  title: 'Email',
-                  content: 'contact@recipehub.com',
-                },
-                {
-                  icon: Phone,
-                  title: 'Phone',
-                  content: '+1 (555) 123-4567',
-                },
-                {
-                  icon: MapPin,
-                  title: 'Location',
-                  content: 'San Francisco, California',
-                },
-              ].map((item, idx) => {
-                const Icon = item.icon;
-                return (
-                  <div key={idx} className="bg-white p-8 rounded-2xl border border-gray-200 hover:border-orange-500 transition-colors text-center">
-                    <Icon className="w-12 h-12 text-orange-500 mx-auto mb-4" />
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">{item.title}</h3>
-                    <p className="text-gray-600">{item.content}</p>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
+          </motion.div>
+          <motion.div
+            className="grid md:grid-cols-3 gap-8 mb-16"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            {contactInfo.map((item, idx) => {
+              const Icon = item.icon;
+              return (
+                <motion.div
+                  key={idx}
+                  variants={itemVariants}
+                  className="bg-background border border-accent/20 p-8 rounded-2xl hover:border-primary/40 hover:shadow-lg transition-all duration-300 text-center"
+                >
+                  <Icon className="w-12 h-12 text-primary mx-auto mb-4" />
+                  <h3 className="font-display text-xl font-bold text-text mb-2">{item.title}</h3>
+                  <p className="font-body text-text-secondary">{item.content}</p>
+                </motion.div>
+              );
+            })}
+          </motion.div>
+        </Container>
 
-          {/* Contact Form */}
-          <div className="max-w-2xl mx-auto bg-white p-8 md:p-12 rounded-3xl border border-gray-200">
+        {/* Contact Form */}
+        <Container>
+          <motion.div
+            className="max-w-2xl mx-auto bg-background border border-accent/20 p-8 md:p-12 rounded-3xl"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
             {submitted && (
-              <div className="mb-8 p-4 bg-green-50 border border-green-200 rounded-xl text-green-800">
-                <p className="font-medium">Thank you for your message! We&apos;ll get back to you soon.</p>
-              </div>
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mb-8 p-4 bg-primary/10 border border-primary/30 rounded-xl text-primary"
+              >
+                <p className="font-body font-medium">Thank you for your message! We'll get back to you soon.</p>
+              </motion.div>
             )}
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="name" className="block font-display font-semibold text-text mb-3">
                   Full Name
                 </label>
                 <Input
@@ -114,12 +189,12 @@ export default function ContactPage() {
                   className={errors.name ? 'border-red-500' : ''}
                 />
                 {errors.name && (
-                  <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
+                  <p className="text-red-500 font-body text-sm mt-2">{errors.name.message}</p>
                 )}
               </div>
 
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="email" className="block font-display font-semibold text-text mb-3">
                   Email Address
                 </label>
                 <Input
@@ -130,12 +205,12 @@ export default function ContactPage() {
                   className={errors.email ? 'border-red-500' : ''}
                 />
                 {errors.email && (
-                  <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
+                  <p className="text-red-500 font-body text-sm mt-2">{errors.email.message}</p>
                 )}
               </div>
 
               <div>
-                <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="subject" className="block font-display font-semibold text-text mb-3">
                   Subject
                 </label>
                 <Input
@@ -145,12 +220,12 @@ export default function ContactPage() {
                   className={errors.subject ? 'border-red-500' : ''}
                 />
                 {errors.subject && (
-                  <p className="text-red-500 text-sm mt-1">{errors.subject.message}</p>
+                  <p className="text-red-500 font-body text-sm mt-2">{errors.subject.message}</p>
                 )}
               </div>
 
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="message" className="block font-display font-semibold text-text mb-3">
                   Message
                 </label>
                 <Textarea
@@ -161,7 +236,7 @@ export default function ContactPage() {
                   className={errors.message ? 'border-red-500' : ''}
                 />
                 {errors.message && (
-                  <p className="text-red-500 text-sm mt-1">{errors.message.message}</p>
+                  <p className="text-red-500 font-body text-sm mt-2">{errors.message.message}</p>
                 )}
               </div>
 
@@ -173,39 +248,40 @@ export default function ContactPage() {
                 {isSubmitting ? 'Sending...' : 'Send Message'}
               </Button>
             </form>
-          </div>
+          </motion.div>
         </Container>
       </section>
 
       {/* FAQ Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 border-t border-accent/20">
         <Container>
-          <SectionTitle title="Frequently Asked Questions" className="text-center mb-16" />
-          <div className="max-w-2xl mx-auto space-y-6">
-            {[
-              {
-                q: 'How quickly will I receive a response?',
-                a: 'We typically respond to inquiries within 24-48 hours during business days.',
-              },
-              {
-                q: 'Can I report a bug or issue?',
-                a: 'Yes, please include as much detail as possible in your message, including steps to reproduce the issue.',
-              },
-              {
-                q: 'Do you accept partnership inquiries?',
-                a: 'We welcome partnership and collaboration opportunities. Feel free to reach out with your proposal.',
-              },
-              {
-                q: 'Is my personal data safe?',
-                a: 'Your data is secure and will never be shared with third parties. We follow strict privacy standards.',
-              },
-            ].map((item, idx) => (
-              <div key={idx} className="p-6 bg-gray-50 rounded-xl">
-                <h4 className="font-bold text-gray-900 mb-3">{item.q}</h4>
-                <p className="text-gray-600">{item.a}</p>
-              </div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="mb-16"
+          >
+            <SectionTitle title="Frequently Asked Questions" className="text-center mb-16" />
+          </motion.div>
+          <motion.div
+            className="max-w-2xl mx-auto space-y-6"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            {faqItems.map((item, idx) => (
+              <motion.div
+                key={idx}
+                variants={itemVariants}
+                className="p-6 bg-background border border-accent/20 rounded-xl hover:border-primary/40 hover:shadow-md transition-all duration-300"
+              >
+                <h4 className="font-display font-bold text-text mb-3">{item.q}</h4>
+                <p className="font-body text-text-secondary">{item.a}</p>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </Container>
       </section>
     </div>

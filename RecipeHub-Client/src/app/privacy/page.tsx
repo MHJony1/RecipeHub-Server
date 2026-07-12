@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { motion } from 'framer-motion';
 import { Container } from '@/components/common/Container';
 import { SectionTitle } from '@/components/common/SectionTitle';
 
@@ -9,6 +10,15 @@ export const metadata: Metadata = {
     title: 'Privacy Policy - RecipeHub',
     description: 'Learn how we protect your data',
     type: 'website',
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5 },
   },
 };
 
@@ -57,18 +67,23 @@ Types of Data Collected:
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 border-b border-accent/20">
         <Container>
-          <div className="max-w-3xl mx-auto">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+          <motion.div
+            className="max-w-3xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <h1 className="font-display text-5xl md:text-6xl font-bold text-text mb-6">
               Privacy Policy
             </h1>
-            <p className="text-gray-600">
+            <p className="font-body text-text-secondary">
               Last updated: January 2025
             </p>
-          </div>
+          </motion.div>
         </Container>
       </section>
 
@@ -77,56 +92,106 @@ Types of Data Collected:
         <Container>
           <div className="max-w-3xl mx-auto space-y-12">
             {sections.map((section, idx) => (
-              <div key={idx}>
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">{section.title}</h2>
-                <div className="text-gray-600 whitespace-pre-line leading-relaxed">
+              <motion.div
+                key={idx}
+                variants={itemVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1 }}
+              >
+                <h2 className="font-display text-2xl font-bold text-text mb-4 pb-3 border-b border-accent/20">
+                  {section.title}
+                </h2>
+                <div className="font-body text-text-secondary whitespace-pre-line leading-relaxed">
                   {section.content}
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </Container>
       </section>
 
       {/* Additional Sections */}
-      <section className="py-20 bg-white">
+      <section className="py-20 border-t border-accent/20">
         <Container>
           <div className="max-w-3xl mx-auto space-y-12">
-            <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Data Retention</h2>
-              <p className="text-gray-600 leading-relaxed">
+            <motion.div
+              variants={itemVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
+              <h2 className="font-display text-2xl font-bold text-text mb-4 pb-3 border-b border-accent/20">Data Retention</h2>
+              <p className="font-body text-text-secondary leading-relaxed">
                 RecipeHub will retain your Personal Data only for as long as necessary for the purposes set out in this Privacy Policy. We will retain and use your Personal Data to the extent necessary to comply with our legal obligations (for example, if we are required to retain your data to comply with applicable laws), resolve disputes, and enforce our legal agreements and policies.
               </p>
-            </div>
+            </motion.div>
 
-            <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Your Rights</h2>
-              <p className="text-gray-600 leading-relaxed mb-4">
+            <motion.div
+              variants={itemVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+            >
+              <h2 className="font-display text-2xl font-bold text-text mb-4 pb-3 border-b border-accent/20">Your Rights</h2>
+              <p className="font-body text-text-secondary leading-relaxed mb-4">
                 You have the right to:
               </p>
-              <ul className="list-disc list-inside space-y-2 text-gray-600">
-                <li>Access your personal data</li>
-                <li>Request correction of your data</li>
-                <li>Request deletion of your data</li>
-                <li>Object to processing of your data</li>
-                <li>Request restriction of processing</li>
-                <li>Withdraw consent</li>
+              <ul className="space-y-2 font-body text-text-secondary">
+                <li className="flex items-start gap-3">
+                  <span className="text-secondary flex-shrink-0 mt-1">•</span>
+                  <span>Access your personal data</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-secondary flex-shrink-0 mt-1">•</span>
+                  <span>Request correction of your data</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-secondary flex-shrink-0 mt-1">•</span>
+                  <span>Request deletion of your data</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-secondary flex-shrink-0 mt-1">•</span>
+                  <span>Object to processing of your data</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-secondary flex-shrink-0 mt-1">•</span>
+                  <span>Request restriction of processing</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-secondary flex-shrink-0 mt-1">•</span>
+                  <span>Withdraw consent</span>
+                </li>
               </ul>
-            </div>
+            </motion.div>
 
-            <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Third-Party Services</h2>
-              <p className="text-gray-600 leading-relaxed">
+            <motion.div
+              variants={itemVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+            >
+              <h2 className="font-display text-2xl font-bold text-text mb-4 pb-3 border-b border-accent/20">Third-Party Services</h2>
+              <p className="font-body text-text-secondary leading-relaxed">
                 Our service may contain links to third-party websites and applications that are not operated by us. This Privacy Policy applies only to information we collect, and we are not responsible for third-party privacy practices. We encourage you to review the privacy policies of any third-party services before providing your personal information.
               </p>
-            </div>
+            </motion.div>
 
-            <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Cookies</h2>
-              <p className="text-gray-600 leading-relaxed">
+            <motion.div
+              variants={itemVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+            >
+              <h2 className="font-display text-2xl font-bold text-text mb-4 pb-3 border-b border-accent/20">Cookies</h2>
+              <p className="font-body text-text-secondary leading-relaxed">
                 We use cookies and similar tracking technologies to track activity on our service and hold certain information. You can instruct your browser to refuse all cookies or to indicate when a cookie is being sent. However, if you do not accept cookies, you may not be able to use some portions of our service.
               </p>
-            </div>
+            </motion.div>
           </div>
         </Container>
       </section>

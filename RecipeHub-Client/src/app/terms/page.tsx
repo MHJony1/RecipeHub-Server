@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { motion } from 'framer-motion';
 import { Container } from '@/components/common/Container';
 import { SectionTitle } from '@/components/common/SectionTitle';
 
@@ -9,6 +10,15 @@ export const metadata: Metadata = {
     title: 'Terms & Conditions - RecipeHub',
     description: 'Review our terms of service',
     type: 'website',
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5 },
   },
 };
 
@@ -77,18 +87,23 @@ export default function TermsPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 border-b border-accent/20">
         <Container>
-          <div className="max-w-3xl mx-auto">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+          <motion.div
+            className="max-w-3xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <h1 className="font-display text-5xl md:text-6xl font-bold text-text mb-6">
               Terms & Conditions
             </h1>
-            <p className="text-gray-600">
+            <p className="font-body text-text-secondary">
               Last updated: January 2025
             </p>
-          </div>
+          </motion.div>
         </Container>
       </section>
 
@@ -97,48 +112,80 @@ export default function TermsPage() {
         <Container>
           <div className="max-w-3xl mx-auto space-y-12">
             {sections.map((section, idx) => (
-              <div key={idx}>
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">{section.title}</h2>
-                <div className="text-gray-600 whitespace-pre-line leading-relaxed">
+              <motion.div
+                key={idx}
+                variants={itemVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.05 }}
+              >
+                <h2 className="font-display text-2xl font-bold text-text mb-4 pb-3 border-b border-accent/20">
+                  {section.title}
+                </h2>
+                <div className="font-body text-text-secondary whitespace-pre-line leading-relaxed">
                   {section.content}
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </Container>
       </section>
 
       {/* Additional Info */}
-      <section className="py-20 bg-white">
+      <section className="py-20 border-t border-accent/20">
         <Container>
           <div className="max-w-3xl mx-auto space-y-12">
-            <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Termination</h2>
-              <p className="text-gray-600 leading-relaxed">
+            <motion.div
+              variants={itemVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
+              <h2 className="font-display text-2xl font-bold text-text mb-4 pb-3 border-b border-accent/20">Termination</h2>
+              <p className="font-body text-text-secondary leading-relaxed">
                 We may terminate or suspend your account and access to RecipeHub immediately, without prior notice or liability, for any reason whatsoever, including if you breach the Terms. Upon termination, your right to use the service will immediately cease.
               </p>
-            </div>
+            </motion.div>
 
-            <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Intellectual Property Rights</h2>
-              <p className="text-gray-600 leading-relaxed">
+            <motion.div
+              variants={itemVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+            >
+              <h2 className="font-display text-2xl font-bold text-text mb-4 pb-3 border-b border-accent/20">Intellectual Property Rights</h2>
+              <p className="font-body text-text-secondary leading-relaxed">
                 Unless otherwise stated, RecipeHub and its suppliers own the intellectual property rights for all material on the website. All intellectual property rights are reserved. You may access this for your personal use subjected to restrictions set in these terms and conditions.
               </p>
-            </div>
+            </motion.div>
 
-            <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Limitation of Liability</h2>
-              <p className="text-gray-600 leading-relaxed">
+            <motion.div
+              variants={itemVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+            >
+              <h2 className="font-display text-2xl font-bold text-text mb-4 pb-3 border-b border-accent/20">Limitation of Liability</h2>
+              <p className="font-body text-text-secondary leading-relaxed">
                 RecipeHub shall not be liable to you for any damages, losses, or claims arising out of or connected with your use of RecipeHub, including but not limited to direct, indirect, incidental, special, or consequential damages, even if RecipeHub has been advised of the possibility of such damages.
               </p>
-            </div>
+            </motion.div>
 
-            <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Contact Information</h2>
-              <p className="text-gray-600 leading-relaxed">
+            <motion.div
+              variants={itemVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+            >
+              <h2 className="font-display text-2xl font-bold text-text mb-4 pb-3 border-b border-accent/20">Contact Information</h2>
+              <p className="font-body text-text-secondary leading-relaxed">
                 If you have any questions about these Terms & Conditions, please contact us at legal@recipehub.com or through our contact form.
               </p>
-            </div>
+            </motion.div>
           </div>
         </Container>
       </section>
