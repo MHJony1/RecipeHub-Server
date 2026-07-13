@@ -68,8 +68,6 @@ export const RecipesContent = () => {
           setPagination(
             response.pagination || { page: 1, totalPages: 1, total: 0 }
           );
-
-          updateURL(filters);
         }
       } catch (err) {
         if (!controller.signal.aborted) {
@@ -96,7 +94,7 @@ export const RecipesContent = () => {
     filters.sort,
   ]);
 
-  const updateURL = (filters: Filters) => {
+  useEffect(() => {
     const params = new URLSearchParams();
     if (filters.search) params.set('search', filters.search);
     if (filters.category) params.set('category', filters.category);
@@ -107,7 +105,7 @@ export const RecipesContent = () => {
     const query = params.toString();
     const url = query ? `/recipes?${query}` : '/recipes';
     window.history.replaceState(null, '', url);
-  };
+  }, [filters.page, filters.search, filters.category, filters.difficulty, filters.sort]);
 
   const handleSearch = (query: string) => {
     setFilters((prev) => ({ ...prev, search: query, page: 1 }));
