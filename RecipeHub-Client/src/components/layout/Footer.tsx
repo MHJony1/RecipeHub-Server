@@ -4,10 +4,16 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ROUTES } from '@/constants';
 import { Container } from '@/components/common/Container';
-import { Mail, Phone, MapPin } from 'lucide-react';
+import { Envelope, MapPin, ArrowUp, LogoFacebook } from '@gravity-ui/icons';
+import { Phone } from 'lucide-react';
+import { FaSquareXTwitter, FaInstagram, FaYoutube } from 'react-icons/fa6';
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -25,7 +31,7 @@ export const Footer = () => {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5 },
+      transition: { duration: 0.4, ease: 'easeOut' },
     },
   };
 
@@ -42,35 +48,109 @@ export const Footer = () => {
   ];
 
   const contactInfo = [
-    { icon: Mail, label: 'contact@recipehub.com' },
-    { icon: Phone, label: '+1 (555) 123-4567' },
-    { icon: MapPin, label: 'San Francisco, CA' },
+    {
+      icon: Envelope,
+      label: 'contact@recipehub.com',
+      href: 'mailto:contact@recipehub.com',
+    },
+    { icon: Phone, label: '+1 (555) 123-4567', href: 'tel:+15551234567' },
+    { icon: MapPin, label: 'San Francisco, CA', href: '#' },
+  ];
+
+  const socialLinks = [
+    {
+      icon: LogoFacebook,
+      label: 'Facebook',
+      href: '#',
+      color: 'hover:text-[#1877F2]',
+    },
+    {
+      icon: FaSquareXTwitter,
+      label: 'Twitter',
+      href: '#',
+      color: 'hover:text-[#000000]',
+    },
+    {
+      icon: FaInstagram,
+      label: 'Instagram',
+      href: '#',
+      color: 'hover:text-[#E4405F]',
+    },
+    {
+      icon: FaYoutube,
+      label: 'YouTube',
+      href: '#',
+      color: 'hover:text-[#FF0000]',
+    },
   ];
 
   return (
-    <footer className="bg-background mt-24 border-t border-accent/20">
-      <Container className="py-16">
+    <footer className="relative bg-gradient-to-b from-[#FFFBF7] to-[#FDF5EC] border-t border-[#F4A261]/15 mt-12 sm:mt-16 md:mt-20">
+      {/* Decorative Gradient Line */}
+      <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-[#E07A2F] to-transparent" />
+
+      {/* Decorative Elements */}
+      <div className="absolute top-20 right-10 text-[#E9C46A]/10 text-6xl font-serif hidden lg:block">
+        ✦
+      </div>
+      <div className="absolute bottom-20 left-10 text-[#F4A261]/10 text-6xl font-serif hidden lg:block">
+        ✦
+      </div>
+
+      {/* Subtle Background Pattern */}
+      <div className="absolute inset-0 opacity-[0.02]">
+        <div
+          className="w-full h-full"
+          style={{
+            backgroundImage:
+              'radial-gradient(circle at 1px 1px, #2D1B0E 1px, transparent 0)',
+            backgroundSize: '40px 40px',
+          }}
+        />
+      </div>
+
+      <Container className="relative z-10 py-8 md:py-10 lg:py-12">
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-16"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 md:gap-8 mb-8"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
         >
-          {/* Brand */}
+          {/* Brand Section */}
           <motion.div variants={itemVariants} className="lg:col-span-2">
-            <h3 className="font-display text-2xl font-bold text-primary mb-4">🍽️ RecipeHub</h3>
-            <p className="font-body text-text-secondary leading-relaxed mb-6">
-              Discover amazing recipes and share your culinary creations with a passionate community of food lovers.
+            <Link href={ROUTES.HOME} className="inline-block mb-3">
+              <h3 className="font-display text-xl md:text-2xl font-bold">
+                <span className="text-[#2D1B0E]">Recipe</span>
+                <span className="bg-gradient-to-r from-[#E07A2F] to-[#E9C46A] bg-clip-text text-transparent">
+                  Hub
+                </span>
+              </h3>
+            </Link>
+            <p className="text-[#7A6B5A] text-sm leading-relaxed max-w-sm mb-4">
+              Discover amazing recipes and share your culinary creations with a
+              passionate community of food lovers.
             </p>
-            <div className="space-y-3">
+
+            {/* Contact Info */}
+            <div className="space-y-2.5">
               {contactInfo.map((item, idx) => {
                 const Icon = item.icon;
                 return (
-                  <div key={idx} className="flex items-center gap-3 text-text-secondary">
-                    <Icon size={18} className="text-secondary flex-shrink-0" />
-                    <span className="font-body text-sm">{item.label}</span>
-                  </div>
+                  <a
+                    key={idx}
+                    href={item.href}
+                    className="flex items-center gap-3 text-[#7A6B5A] hover:text-[#E07A2F] transition-all duration-300 group text-sm"
+                  >
+                    <div className="w-8 h-8 rounded-full bg-[#F4A261]/10 flex items-center justify-center group-hover:bg-[#F4A261]/20 transition-all duration-300 flex-shrink-0">
+                      <Icon
+                        width={16}
+                        height={16}
+                        className="text-[#E9C46A] group-hover:text-[#E07A2F] transition-colors"
+                      />
+                    </div>
+                    <span>{item.label}</span>
+                  </a>
                 );
               })}
             </div>
@@ -78,14 +158,18 @@ export const Footer = () => {
 
           {/* Quick Links */}
           <motion.div variants={itemVariants}>
-            <h4 className="font-display text-lg font-bold text-text mb-6">Quick Links</h4>
-            <ul className="space-y-3">
+            <h4 className="font-display text-base font-bold text-[#2D1B0E] mb-4 relative inline-block">
+              Quick Links
+              <span className="absolute -bottom-1.5 left-0 w-6 h-0.5 bg-gradient-to-r from-[#E07A2F] to-[#E9C46A] rounded-full" />
+            </h4>
+            <ul className="space-y-2.5">
               {links.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="font-body text-text-secondary hover:text-primary transition-colors duration-300"
+                    className="text-[#7A6B5A] hover:text-[#E07A2F] transition-all duration-300 text-sm flex items-center gap-2 group"
                   >
+                    <span className="w-0 h-0.5 bg-[#E07A2F] group-hover:w-2 transition-all duration-300" />
                     {link.label}
                   </Link>
                 </li>
@@ -95,14 +179,18 @@ export const Footer = () => {
 
           {/* Support */}
           <motion.div variants={itemVariants}>
-            <h4 className="font-display text-lg font-bold text-text mb-6">Support</h4>
-            <ul className="space-y-3">
+            <h4 className="font-display text-base font-bold text-[#2D1B0E] mb-4 relative inline-block">
+              Support
+              <span className="absolute -bottom-1.5 left-0 w-6 h-0.5 bg-gradient-to-r from-[#E07A2F] to-[#E9C46A] rounded-full" />
+            </h4>
+            <ul className="space-y-2.5">
               {supportLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="font-body text-text-secondary hover:text-primary transition-colors duration-300"
+                    className="text-[#7A6B5A] hover:text-[#E07A2F] transition-all duration-300 text-sm flex items-center gap-2 group"
                   >
+                    <span className="w-0 h-0.5 bg-[#E07A2F] group-hover:w-2 transition-all duration-300" />
                     {link.label}
                   </Link>
                 </li>
@@ -112,57 +200,92 @@ export const Footer = () => {
 
           {/* Social */}
           <motion.div variants={itemVariants}>
-            <h4 className="font-display text-lg font-bold text-text mb-6">Follow Us</h4>
-            <div className="space-y-3">
-              <a
-                href="#"
-                className="font-body text-text-secondary hover:text-primary transition-colors duration-300 flex items-center"
-              >
-                Facebook
-              </a>
-              <a
-                href="#"
-                className="font-body text-text-secondary hover:text-primary transition-colors duration-300 flex items-center"
-              >
-                Twitter
-              </a>
-              <a
-                href="#"
-                className="font-body text-text-secondary hover:text-primary transition-colors duration-300 flex items-center"
-              >
-                Instagram
-              </a>
+            <h4 className="font-display text-base font-bold text-[#2D1B0E] mb-4 relative inline-block">
+              Follow Us
+              <span className="absolute -bottom-1.5 left-0 w-6 h-0.5 bg-gradient-to-r from-[#E07A2F] to-[#E9C46A] rounded-full" />
+            </h4>
+            <div className="flex flex-wrap gap-3">
+              {socialLinks.map((social, idx) => {
+                const Icon = social.icon;
+                return (
+                  <a
+                    key={idx}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`w-10 h-10 rounded-full bg-[#F4A261]/8 border border-[#F4A261]/15 flex items-center justify-center text-[#7A6B5A] ${social.color} hover:bg-[#F4A261]/20 hover:border-[#F4A261]/30 hover:scale-110 hover:-translate-y-0.5 transition-all duration-300`}
+                    aria-label={social.label}
+                  >
+                    <Icon width={18} height={18} />
+                  </a>
+                );
+              })}
             </div>
+
+            {/* Social Proof Text */}
+            <p className="text-[#7A6B5A]/50 text-[10px] mt-3 flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#E07A2F]" />
+              Join 10,000+ food lovers
+            </p>
           </motion.div>
         </motion.div>
 
-        {/* Divider */}
-        <div className="border-t border-accent/20 mb-8" />
+        {/* Divider with Gradient */}
+        <div className="relative mb-6">
+          <div className="h-px bg-gradient-to-r from-transparent via-[#F4A261]/25 to-transparent" />
+        </div>
 
-        {/* Bottom */}
+        {/* Bottom Section */}
         <motion.div
-          className="flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left"
+          className="flex flex-col sm:flex-row justify-between items-center gap-3 text-center sm:text-left"
           variants={itemVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
         >
-          <p className="font-body text-sm text-text-secondary">
-            &copy; {currentYear} RecipeHub. All rights reserved.
+          <p className="text-[#7A6B5A] text-xs">
+            &copy; {currentYear}{' '}
+            <span className="text-[#E07A2F] font-medium">RecipeHub</span>. All
+            rights reserved.
           </p>
-          <div className="flex gap-6 text-sm font-body text-text-secondary">
-            <a href="/privacy" className="hover:text-primary transition-colors duration-300">
+
+          <div className="flex items-center gap-3 text-xs">
+            <Link
+              href="/privacy"
+              className="text-[#7A6B5A] hover:text-[#E07A2F] transition-colors duration-300"
+            >
               Privacy
-            </a>
-            <a href="/terms" className="hover:text-primary transition-colors duration-300">
+            </Link>
+            <span className="text-[#F4A261]/20">|</span>
+            <Link
+              href="/terms"
+              className="text-[#7A6B5A] hover:text-[#E07A2F] transition-colors duration-300"
+            >
               Terms
-            </a>
-            <a href={ROUTES.CONTACT} className="hover:text-primary transition-colors duration-300">
+            </Link>
+            <span className="text-[#F4A261]/20">|</span>
+            <Link
+              href={ROUTES.CONTACT}
+              className="text-[#7A6B5A] hover:text-[#E07A2F] transition-colors duration-300"
+            >
               Contact
-            </a>
+            </Link>
           </div>
         </motion.div>
       </Container>
+
+      {/* Scroll to Top Button */}
+      <button
+        onClick={scrollToTop}
+        className="absolute -top-4 right-4 md:right-6 w-9 h-9 md:w-10 md:h-10 rounded-full bg-gradient-to-br from-[#E07A2F] to-[#E9C46A] text-white shadow-md shadow-[#E07A2F]/30 hover:shadow-lg hover:shadow-[#E07A2F]/40 hover:scale-110 transition-all duration-300 flex items-center justify-center group"
+        aria-label="Scroll to top"
+      >
+        <ArrowUp
+          width={16}
+          height={16}
+          className="group-hover:-translate-y-0.5 transition-transform"
+        />
+      </button>
     </footer>
   );
 };

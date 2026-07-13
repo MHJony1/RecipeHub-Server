@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/providers/AuthContext';
-import { Container } from '@/components/common/Container';
 import { DashboardSidebar } from '@/components/dashboard/DashboardSidebar';
 import { WelcomeCard } from '@/components/dashboard/WelcomeCard';
 import { StatisticsCards } from '@/components/dashboard/StatisticsCards';
@@ -51,15 +50,19 @@ export const DashboardContent = () => {
         const userRecipes = response.data || [];
         setRecipes(userRecipes);
 
-        // Calculate statistics
         const allRecipesResponse = await recipeService.getUserRecipes(1, 100);
         const allRecipes = allRecipesResponse.data || [];
 
         const categories = new Set(allRecipes.map((r) => r.category));
         const avgCookingTime = allRecipes.length
-          ? Math.round(allRecipes.reduce((sum, r) => sum + r.cookingTime, 0) / allRecipes.length)
+          ? Math.round(
+              allRecipes.reduce((sum, r) => sum + r.cookingTime, 0) /
+                allRecipes.length
+            )
           : 0;
-        const latestRecipeDate = allRecipes.length ? allRecipes[0].createdAt : null;
+        const latestRecipeDate = allRecipes.length
+          ? allRecipes[0].createdAt
+          : null;
 
         setStats({
           totalRecipes: allRecipes.length,
@@ -80,7 +83,7 @@ export const DashboardContent = () => {
 
   if (authLoading || isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-[#FFFBF7] pt-20">
         <LoadingSpinner />
       </div>
     );
@@ -91,39 +94,45 @@ export const DashboardContent = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 p-4 md:p-8">
-        {/* Sidebar */}
-        <div className="lg:col-span-1">
-          <DashboardSidebar />
-        </div>
+    <div className="min-h-screen bg-[#FFFBF7] pt-24 pb-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+          {/* Sidebar */}
+          <div className="lg:col-span-1">
+            <DashboardSidebar />
+          </div>
 
-        {/* Main Content */}
-        <div className="lg:col-span-3 space-y-8">
-          {/* Welcome Card */}
-          <WelcomeCard userName={user.name} />
+          {/* Main Content */}
+          <div className="lg:col-span-3 space-y-6">
+            <WelcomeCard userName={user.name} />
+            <StatisticsCards stats={stats} />
 
-          {/* Statistics Cards */}
-          <StatisticsCards stats={stats} />
+            {stats.totalRecipes > 0 && <DashboardCharts recipes={recipes} />}
 
-          {/* Charts */}
-          {stats.totalRecipes > 0 && <DashboardCharts recipes={recipes} />}
+            {recipes.length > 0 ? (
+              <RecentRecipes recipes={recipes} />
+            ) : (
+              <div className="bg-white border border-[#F4A261]/10 rounded-3xl p-12 text-center shadow-xl shadow-[#F4A261]/5">
+                <div className="w-20 h-20 rounded-full bg-[#F4A261]/10 flex items-center justify-center mx-auto mb-4">
+                  <span className="text-4xl">🍽️</span>
+                </div>
+                <h3 className="font-display text-xl font-bold text-[#2D1B0E] mb-2">
+                  No Recipes Yet
+                </h3>
+                <p className="text-[#7A6B5A] text-sm mb-6">
+                  Start your culinary journey by creating your first recipe!
+                </p>
+                <QuickActions />
+              </div>
+            )}
 
-          {/* Recent Recipes */}
-          {recipes.length > 0 ? (
-            <RecentRecipes recipes={recipes} />
-          ) : (
-            <div className="text-center py-12">
-              <p className="font-body text-text-secondary mb-6">You haven&apos;t created any recipes yet.</p>
-              <QuickActions />
-            </div>
-          )}
-
-          {error && (
-            <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-              <p className="text-red-800">{error}</p>
-            </div>
-          )}
+            {error && (
+              <div className="bg-red-50 border border-red-200 rounded-2xl p-4 flex items-center gap-3">
+                <span className="text-red-500 text-lg">⚠️</span>
+                <p className="text-red-800 text-sm">{error}</p>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>

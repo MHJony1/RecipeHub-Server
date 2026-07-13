@@ -21,7 +21,7 @@ export const SortDropdown = ({ value, onChange }: SortDropdownProps) => {
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="appearance-none bg-white border border-accent/30 rounded-lg px-4 py-2 pr-10 cursor-pointer hover:border-accent/50 focus:outline-none focus:ring-2 focus:ring-primary transition font-body text-text"
+        className="appearance-none bg-white border border-[#F4A261]/20 rounded-xl px-4 py-2.5 pr-10 cursor-pointer hover:border-[#E07A2F]/40 focus:outline-none focus:ring-2 focus:ring-[#E07A2F]/20 focus:border-[#E07A2F] transition-all duration-300 text-sm text-[#2D1B0E]"
       >
         {SORT_OPTIONS.map((option) => (
           <option key={option.value} value={option.value}>
@@ -29,7 +29,7 @@ export const SortDropdown = ({ value, onChange }: SortDropdownProps) => {
           </option>
         ))}
       </select>
-      <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 text-text-secondary pointer-events-none" size={16} />
+      <ChevronDown className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#7A6B5A] pointer-events-none w-4 h-4" />
     </div>
   );
 };

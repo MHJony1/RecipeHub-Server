@@ -7,7 +7,7 @@ import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { type Recipe } from '@/services/recipe.service';
 import { ROUTES } from '@/constants';
-import { Badge } from '@/components/ui/Badge';
+import { Clock, User, ArrowRight, Sparkles } from 'lucide-react';
 
 interface RecentRecipesProps {
   recipes: Recipe[];
@@ -21,18 +21,44 @@ export const RecentRecipes = ({ recipes }: RecentRecipesProps) => {
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.3 } },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.4, ease: 'easeOut' },
+    },
   };
 
   return (
-    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
-      <div className="mb-6">
-        <h2 className="font-display text-2xl font-bold text-text">Recent Recipes</h2>
-        <p className="font-body text-text-secondary mt-1">Your latest creations</p>
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.3 }}
+    >
+      <div className="flex items-center justify-between mb-5">
+        <div>
+          <div className="flex items-center gap-2 mb-1">
+            <Sparkles className="w-4 h-4 text-[#E07A2F]" />
+            <span className="text-[#E07A2F] text-xs font-medium tracking-[0.2em] uppercase">
+              Your Creations
+            </span>
+          </div>
+          <h2 className="font-display text-2xl font-bold text-[#2D1B0E]">
+            Recent Recipes
+          </h2>
+          <p className="text-[#7A6B5A] text-sm mt-0.5">
+            Your latest culinary creations
+          </p>
+        </div>
+        <Link href={ROUTES.MANAGE_RECIPES}>
+          <button className="text-[#E07A2F] hover:text-[#E07A2F]/80 text-sm font-medium flex items-center gap-1 group transition-colors">
+            View All
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </button>
+        </Link>
       </div>
 
       <motion.div
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
@@ -42,34 +68,65 @@ export const RecentRecipes = ({ recipes }: RecentRecipesProps) => {
 
           return (
             <motion.div key={recipe._id} variants={itemVariants}>
-              <Card className="overflow-hidden hover:shadow-lg transition-shadow h-full flex flex-col">
-                <div className="relative h-40 w-full overflow-hidden bg-accent/20">
+              <Card className="group overflow-hidden hover:shadow-2xl transition-all duration-500 bg-white border border-[#F4A261]/10 hover:border-[#E07A2F]/30 rounded-2xl h-full flex flex-col">
+                <div className="relative h-48 w-full overflow-hidden bg-gradient-to-br from-[#F4A261]/10 to-[#E9C46A]/10">
                   {recipe.image ? (
                     <Image
                       src={recipe.image}
                       alt={recipe.title}
                       fill
-                      className="object-cover"
+                      className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
                     />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center bg-linear-to-br from-primary/20 to-secondary/20 text-3xl">
+                    <div className="w-full h-full flex items-center justify-center text-5xl">
                       🍽️
                     </div>
                   )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#2D1B0E]/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                  {/* Category Badge */}
+                  <div className="absolute top-3 left-3 z-10">
+                    <span className="inline-flex items-center gap-1.5 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-xs font-medium text-[#2D1B0E] shadow-lg border border-[#F4A261]/20">
+                      {recipe.category}
+                    </span>
+                  </div>
                 </div>
 
                 <div className="p-4 flex-1 flex flex-col">
-                  <h3 className="font-display font-bold text-text mb-2 line-clamp-2">{recipe.title}</h3>
+                  <Link href={ROUTES.RECIPE_DETAILS(recipe.slug)}>
+                    <h3 className="font-display font-bold text-[#2D1B0E] text-base hover:text-[#E07A2F] transition-colors line-clamp-2">
+                      {recipe.title}
+                    </h3>
+                  </Link>
 
-                  <div className="flex gap-2 mb-4">
-                    <Badge className="bg-primary/10 text-primary border-primary/30">{recipe.category}</Badge>
+                  <div className="flex items-center gap-3 text-xs text-[#7A6B5A] mt-2">
+                    <div className="flex items-center gap-1">
+                      <Clock className="w-3.5 h-3.5 text-[#E07A2F]" />
+                      <span>{recipe.cookingTime} min</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <User className="w-3.5 h-3.5 text-[#E07A2F]" />
+                      <span>You</span>
+                    </div>
                   </div>
 
-                  <p className="font-body text-sm text-text-secondary mb-4 flex-1">{createdDate}</p>
+                  <p className="text-[#7A6B5A] text-xs mt-1">{createdDate}</p>
 
-                  <Button size="sm" variant="secondary" className="w-full font-body">
-                    <Link href={ROUTES.RECIPE_DETAILS(recipe.slug)}>View Details</Link>
-                  </Button>
+                  <div className="mt-4 pt-3 border-t border-[#F4A261]/10">
+                    <Button
+                      size="sm"
+                      variant="secondary"
+                      className="w-full font-body text-sm rounded-xl border-[#E07A2F]/20 text-[#E07A2F] hover:bg-[#F4A261]/10 hover:border-[#E07A2F] transition-all duration-300"
+                    >
+                      <Link
+                        href={ROUTES.RECIPE_DETAILS(recipe.slug)}
+                        className="flex items-center justify-center gap-2"
+                      >
+                        View Details
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </Link>
+                    </Button>
+                  </div>
                 </div>
               </Card>
             </motion.div>
