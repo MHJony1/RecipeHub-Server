@@ -45,6 +45,8 @@ export const RecipesContent = () => {
   });
 
   useEffect(() => {
+    const controller = new AbortController();
+
     const fetchRecipes = async () => {
       try {
         setIsLoading(true);
@@ -60,23 +62,30 @@ export const RecipesContent = () => {
         if (filters.difficulty) params.difficulty = filters.difficulty;
         if (filters.sort) params.sort = filters.sort;
 
-        const response = await recipeService.getRecipes(params);
-        setRecipes(response.data || []);
-        setPagination(
-          response.pagination || { page: 1, totalPages: 1, total: 0 }
-        );
+        const response = await recipeService.getRecipes(params, controller.signal);
 
-        updateURL(filters);
+        if (!controller.signal.aborted) {
+          setRecipes(response.data || []);
+          setPagination(
+            response.pagination || { page: 1, totalPages: 1, total: 0 }
+          );
+        }
       } catch (err) {
-        console.error('Failed to fetch recipes:', err);
-        setError('Failed to load recipes. Please try again.');
-        setRecipes([]);
+        if (!controller.signal.aborted) {
+          console.error('Failed to fetch recipes:', err);
+          setError('Failed to load recipes. Please try again.');
+          setRecipes([]);
+        }
       } finally {
-        setIsLoading(false);
+        if (!controller.signal.aborted) {
+          setIsLoading(false);
+        }
       }
     };
 
     fetchRecipes();
+
+    return () => controller.abort();
   }, [
     filters.page,
     filters.limit,
@@ -86,7 +95,7 @@ export const RecipesContent = () => {
     filters.sort,
   ]);
 
-  const updateURL = (filters: Filters) => {
+  useEffect(() => {
     const params = new URLSearchParams();
     if (filters.search) params.set('search', filters.search);
     if (filters.category) params.set('category', filters.category);
@@ -96,7 +105,7 @@ export const RecipesContent = () => {
 
     const query = params.toString();
     router.push(query ? `/recipes?${query}` : '/recipes');
-  };
+  }, [filters.page, filters.search, filters.category, filters.difficulty, filters.sort, router]);
 
   const handleSearch = (query: string) => {
     setFilters((prev) => ({ ...prev, search: query, page: 1 }));
@@ -234,7 +243,7 @@ export const RecipesContent = () => {
                 {pagination.totalPages > 1 && (
                   <div className="mt-10 md:mt-12">
                     <Pagination
-                      currentPage={pagination.page}
+                      currentPage={filters.page}
                       totalPages={pagination.totalPages}
                       onPageChange={handlePageChange}
                     />

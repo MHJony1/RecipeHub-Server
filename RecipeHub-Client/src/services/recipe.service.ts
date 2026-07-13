@@ -76,12 +76,12 @@ export const recipeService = {
     return response.data;
   },
 
-  async getRecipes(params?: RecipeFilters) {
+  async getRecipes(params?: RecipeFilters, signal?: AbortSignal) {
     const response = await api.get<{
       success: boolean;
       data: Recipe[];
       pagination: PaginationData;
-    }>('/recipes', { params });
+    }>('/recipes', { params, signal });
     return response.data;
   },
 
