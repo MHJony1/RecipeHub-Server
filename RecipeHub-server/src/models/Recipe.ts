@@ -76,7 +76,6 @@ const recipeSchema = new Schema<IRecipe>(
   { timestamps: true }
 );
 
-recipeSchema.index({ slug: 1 });
 recipeSchema.index({ category: 1 });
 recipeSchema.index({ title: 'text' });
 recipeSchema.index({ createdAt: -1 });
