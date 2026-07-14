@@ -31,6 +31,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+// Root route
+app.get('/', (req, res) => {
+  res.json({
+    success: true,
+    message: 'RecipeHub API is running',
+    version: '1.0.0',
+  });
+});
+
 // Health routes
 app.use('/api/v1', healthRoutes);
 
