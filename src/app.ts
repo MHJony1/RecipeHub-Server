@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
 import { config } from './config/env';
+import { ensureConnection } from './config/database';
 import healthRoutes from './routes/health';
 import authRoutes from './routes/auth.routes';
 import recipeRoutes from './routes/recipe.routes';
@@ -11,6 +12,19 @@ import { errorHandler } from './middleware/errorHandler';
 import { notFound } from './middleware/notFound';
 
 const app = express();
+
+// Ensure database connection before handling requests
+app.use(async (_req, res, next) => {
+  try {
+    await ensureConnection();
+    next();
+  } catch (error) {
+    res.status(503).json({
+      success: false,
+      message: 'Database connection unavailable',
+    });
+  }
+});
 
 // Security middleware
 app.use(helmet());
